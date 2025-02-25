@@ -13,6 +13,6 @@ namespace Core.Utilities.Security.JWT
         //User user: bu kullanıcı için
         //List<OperationClaim> oeprationClaims: 
         AccessToken CreateToken(User user, List<OperationClaim> oeprationClaims);
-
+        
     }
 }

@@ -1,6 +1,7 @@
 ﻿using Core.DataAccess.EntityFramework;
 using Core.Entities.Concrete;
 using DataAccess.Abstract;
+using Entities.Concrete;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace DataAccess.Concrete.EntityFramework
 {
-    public class EfUserDal : EfEntityRepositoryBase<User, HospitalManagerContext>, IUserDal
+    public class PatientRepository:EfEntityRepositoryBase<Patient, HospitalManagerContext>, IPatientRepository
     {
         public List<OperationClaim> GetClaims(User user)
         {
