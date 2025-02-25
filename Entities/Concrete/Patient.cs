@@ -14,15 +14,13 @@ namespace Entities.Concrete
     {
         public string PatientName { get; set; }
         public string IdentityNumber { get; set; }
-        //public string Phone { get; set; }
-
-
+   
         [ForeignKey(nameof(User))]
         public int UserId { get; set; }
         public User User { get; set; }
 
         //// 1 hasta, N randevu
-        //public ICollection<Appointment> Appointment { get; set; }
+        public ICollection<Appointment> Appointment { get; set; }
 
     }
 
