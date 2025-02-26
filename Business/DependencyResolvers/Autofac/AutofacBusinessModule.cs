@@ -31,7 +31,10 @@ namespace Business.DependencyResolvers.Autofac
             //builder.RegisterType<FileLogger>().As<ILogger>().SingleInstance();
             //builder.RegisterType<DatabaseLogger>().As<ILogger>().SingleInstance();
             builder.RegisterType<PatientRepository>().As<IPatientRepository>().InstancePerLifetimeScope();
+            builder.RegisterType<DoctorRepository>().As<IDoctorRepository>().InstancePerLifetimeScope();
             builder.RegisterType<UserOperationClaimRepository>().As<IUserOperationClaimRepository>().InstancePerLifetimeScope();
+            builder.RegisterType<PolyclinicRepository>().As<IPolyclinicRepository>().InstancePerLifetimeScope();
+
 
             builder.RegisterType<UserManager>().As<IUserService>();
             builder.RegisterType<EfUserDal>().As<IUserDal>();

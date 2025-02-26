@@ -44,7 +44,7 @@ namespace Business.Concrete
             return new SuccessDataResult<User>(user, Messages.UserRegistered);
         }
 
-
+        //AuthManagerda eklemeleri yapmalıyız. Contorllera yazdıklarımızı buraya alıcaz.
 
         public IDataResult<Patient> RegisterPatient(UserForPatientRegisterDto userForPatientRegisterDto, string password)
         {
@@ -88,12 +88,6 @@ namespace Business.Concrete
             // Başarıyla kaydedilen hastayı döndürüyoruz
             return new SuccessDataResult<Patient>(patient, Messages.UserRegistered);
         }
-
-
-
-
-
-
 
 
 

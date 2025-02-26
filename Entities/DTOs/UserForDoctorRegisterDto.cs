@@ -15,8 +15,10 @@ namespace Entities.DTOs
         public string FirstName { get; set; }
         public string LastName { get; set; }
 
-        public Guid PolyclinicId { get; set; }
+        //public Guid PolyclinicId { get; set; }
+        public string PolyclinicName { get; set; }
+        public string? DoctorSpecialty { get; set; }
 
 
-     }
+    }
 }
