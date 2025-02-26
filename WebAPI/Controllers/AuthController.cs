@@ -62,6 +62,7 @@ namespace WebAPI.Controllers
             }
 
             var registerResult = _authService.Register(userForRegisterDto, userForRegisterDto.Password);
+
             var result = _authService.CreateAccessToken(registerResult.Data);
             if (result.Success)
             {
@@ -75,68 +76,89 @@ namespace WebAPI.Controllers
         public ActionResult RegisterPatient(UserForPatientRegisterDto userForPatientRegisterDto)
         {
             // Kimlik numarasına göre kullanıcı kontrolü yapılıyor
-            var userExists = _authService.UserExistsIdentity(userForPatientRegisterDto.IdentityNumber);
+            var userExists = _authService.UserExistsIdentityPatient(userForPatientRegisterDto.IdentityNumber);
             if (!userExists.Success)
             {
-                return BadRequest(userExists.Message); // Kimlik numarası ile kullanıcı kontrolü
+                return BadRequest(userExists.Message); // Kimlik numarası ile patient kullanıcısı var mı kontrolü
             }
-
-            // Kullanıcı kaydını oluşturuyoruz
-            byte[] passwordHash, passwordSalt;
-            HashingHelper.CreatePasswordHash(userForPatientRegisterDto.Password, out passwordHash, out passwordSalt);
-            var user = new User
-            {
-                Email = userForPatientRegisterDto.Email,
-                FirstName = userForPatientRegisterDto.FirstName,
-                LastName = userForPatientRegisterDto.LastName,
-                PasswordHash = passwordHash,
-                PasswordSalt = passwordSalt,
-                Status = true
-            };
-            _userService.Add(user);  // Kullanıcıyı ekliyoruz
-
-            // Hasta kaydını oluşturuyoruz
-            var patient = new Patient
-            {
-                UserId = user.Id,  // UserId ile ilişkilendiriyoruz
-                PatientName = user.FirstName + user.LastName,
-                IdentityNumber = userForPatientRegisterDto.IdentityNumber
-            };
-
-            _patientService.Add(patient);  // Hastayı ekliyoruz
-
-            // Patient rolünü ekliyoruz
-            var operationClaimId = 3; // Patient rolü
-            var userOperationClaim = new UserOperationClaim
-            {
-                UserId = user.Id,
-                OperationClaimId = operationClaimId
-            };
-
-            // UserOperationClaim'i ekliyoruz
-            _userOperationCalimService.Add(userOperationClaim);
-
-            // Token oluşturma işlemi
-            var result = _authService.CreateAccessToken(user);
+            var registerResult = _authService.RegisterPatient(userForPatientRegisterDto, userForPatientRegisterDto.Password);
+            var result = _authService.CreateAccessToken(registerResult.Data);
             if (result.Success)
             {
-                return Ok(result.Data);  // Token başarıyla oluşturulursa döndürülüyor
+                return Ok(result.Data);
             }
 
-            return BadRequest(result.Message);  // Token oluşturulamazsa hata mesajı döndürülüyor
+            return BadRequest(result.Message);
+
+            //// Kullanıcı kaydını oluşturuyoruz
+            //byte[] passwordHash, passwordSalt;
+            //HashingHelper.CreatePasswordHash(userForPatientRegisterDto.Password, out passwordHash, out passwordSalt);
+            //var user = new User
+            //{
+            //    Email = userForPatientRegisterDto.Email,
+            //    FirstName = userForPatientRegisterDto.FirstName,
+            //    LastName = userForPatientRegisterDto.LastName,
+            //    PasswordHash = passwordHash,
+            //    PasswordSalt = passwordSalt,
+            //    Status = true
+            //};
+            //_userService.Add(user);  // Kullanıcıyı ekliyoruz
+
+
+            //// Hasta kaydını oluşturuyoruz
+            //var patient = new Patient
+            //{
+            //    UserId = user.Id,  // UserId ile ilişkilendiriyoruz
+            //    PatientName = user.FirstName + user.LastName,
+            //    IdentityNumber = userForPatientRegisterDto.IdentityNumber
+            //};
+
+            //_patientService.Add(patient);  // Hastayı ekliyoruz
+
+
+            //// Patient rolünü ekliyoruz
+            //var operationClaimId = 3; // Patient rolü
+            //var userOperationClaim = new UserOperationClaim
+            //{
+            //    UserId = user.Id,
+            //    OperationClaimId = operationClaimId
+            //};
+
+            //// UserOperationClaim'i ekliyoruz
+            //_userOperationCalimService.Add(userOperationClaim);
+
+
+            // Token oluşturma işlemi
+            //var result = _authService.CreateAccessToken(user);
+            //if (result.Success)
+            //{
+            //    return Ok(result.Data);  // Token başarıyla oluşturulursa döndürülüyor
+            //}
+
+            //return BadRequest(result.Message);  // Token oluşturulamazsa hata mesajı döndürülüyor
         }
 
         [HttpPost("register/doctor")]
         public ActionResult RegisterDoctor(UserForDoctorRegisterDto userForDoctorRegisterDto)
         {
             // Kimlik numarasına göre kullanıcı kontrolü yapılıyor
-            var userExists = _authService.UserExistsIdentity(userForDoctorRegisterDto.IdentityNumber);
+            var userExists = _authService.UserExistsIdentityDoctor(userForDoctorRegisterDto.IdentityNumber);
             if (!userExists.Success)
             {
                 return BadRequest(userExists.Message); // Kimlik numarası ile kullanıcı kontrolü
             }
+            //var registerResult = _authService.RegisterDoctor(userForDoctorRegisterDto, userForDoctorRegisterDto.Password);
+            //var result = _authService.CreateAccessToken(registerResult.Data);
+            //if (result.Success)
+            //{
+            //    return Ok(result.Data);
+            //}
 
+            //return BadRequest(result.Message);
             // Kullanıcı kaydını oluşturuyoruz
+
+            #region Kötü_Kod
+
             byte[] passwordHash, passwordSalt;
             HashingHelper.CreatePasswordHash(userForDoctorRegisterDto.Password, out passwordHash, out passwordSalt);
             var user = new User
@@ -181,7 +203,7 @@ namespace WebAPI.Controllers
             // UserOperationClaim'i ekliyoruz
             _userOperationCalimService.Add(userOperationClaim);
 
-            // Token oluşturma işlemi
+            //Token oluşturma işlemi
             var result = _authService.CreateAccessToken(user);
             if (result.Success)
             {
@@ -189,6 +211,8 @@ namespace WebAPI.Controllers
             }
 
             return BadRequest(result.Message);  // Token oluşturulamazsa hata mesajı döndürülüyor
+            #endregion
+
         }
 
 

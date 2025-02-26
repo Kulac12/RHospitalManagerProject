@@ -10,6 +10,8 @@ namespace Business.Abstract
     public interface IUserOperationClaimService
     {
         void Add(UserOperationClaim userOperationClaim);
+
+        List<UserOperationClaim> GetByUserId(int userId);
     }
 
 }

@@ -18,6 +18,7 @@ namespace Business.ValidationRules.FluentValidation
 
         public ProductValidator()
         {
+
             // p nin ProductName i en az 2 karakter uzunluğunda olmalıdır.
             RuleFor(p => p.ProductName).MinimumLength(2);
             RuleFor(p => p.ProductName).NotEmpty();  //Boş olarak geçilemez demek

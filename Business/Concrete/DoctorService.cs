@@ -23,7 +23,7 @@ namespace Business.Concrete
 
         public Doctor GetByIdentityNumber(string identityNumber)
         {
-            return _doctorRepository.Get(u => u.IdentityNumber == identityNumber);
+            return _doctorRepository.GetAll(u => u.IdentityNumber == identityNumber).FirstOrDefault();
         }
 
         //public List<OperationClaim> GetClaims(User user)

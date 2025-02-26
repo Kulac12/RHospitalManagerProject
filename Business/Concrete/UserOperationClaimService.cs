@@ -22,5 +22,10 @@ namespace Business.Concrete
         {
             _userOperationClaimRepository.Add(userOperationClaim);
         }
+
+        public List<UserOperationClaim> GetByUserId(int userId)
+        {
+            return _userOperationClaimRepository.GetAll(u => u.UserId == userId);
+        }
     }
 }

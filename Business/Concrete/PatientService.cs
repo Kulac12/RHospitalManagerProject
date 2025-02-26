@@ -1,4 +1,6 @@
 ﻿using Business.Abstract;
+using Business.ValidationRules.FluentValidation;
+using Core.Aspects.Autofac;
 using Core.Entities.Concrete;
 using DataAccess.Abstract;
 using DataAccess.Concrete.EntityFramework;
@@ -18,6 +20,9 @@ namespace Business.Concrete
         {
             _patientRepository = patientRepository;
         }
+
+        [ValidationAspect(typeof(PatientValidator))]
+        [ValidationAspect(typeof(UserValidator))]
         public void Add(Patient patient)
         {
             _patientRepository.Add(patient);
@@ -25,7 +30,7 @@ namespace Business.Concrete
 
         public Patient GetByIdentityNumber(string identityNumber)
         {
-            return _patientRepository.Get(u => u.IdentityNumber == identityNumber);
+            return _patientRepository.GetAll(u => u.IdentityNumber == identityNumber).FirstOrDefault();
         }
 
         //public List<OperationClaim> GetClaims(User user)

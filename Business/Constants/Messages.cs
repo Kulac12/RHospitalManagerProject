@@ -36,6 +36,8 @@ namespace Business.Constants
         public static string UserNotFound = " Kullanıcı bulunamadı";
 
         public static string PasswordError = "Parola hatası";
+
+        public static string PolyclinikNotFound = "Poliklinik bulunamadı";
     }
 }
 
