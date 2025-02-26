@@ -1,4 +1,6 @@
 ﻿using Business.Abstract;
+using Business.Constants;
+using Core.Utilities.Results;
 using DataAccess.Abstract;
 using DataAccess.Concrete.EntityFramework;
 using Entities.Concrete;
@@ -11,7 +13,7 @@ using System.Threading.Tasks;
 
 namespace Business.Concrete
 {
-    public class PolyclinicService:IPolyclinicService
+    public class PolyclinicService : IPolyclinicService
     {
         IPolyclinicRepository _polyclinicRepository;
         public PolyclinicService(IPolyclinicRepository polyclinicRepository)
@@ -56,6 +58,17 @@ namespace Business.Concrete
 
             return result;
         }
+        public Polyclinic GetBySameName(string name)
+        {
+            return _polyclinicRepository.GetAll(p => p.PoliclinicName == name).SingleOrDefault();
+        }
 
+        public bool PolyclinicExistByName(string name)
+        {
+            // Verilen isimde poliklinik var mı? Eğer varsa true, yoksa false 
+            return _polyclinicRepository.GetAll(p => p.PoliclinicName == name).Any();
+        }
+
+      
     }
 }

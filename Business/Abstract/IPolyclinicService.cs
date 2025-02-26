@@ -1,4 +1,5 @@
-﻿using Entities.Concrete;
+﻿using Core.Utilities.Results;
+using Entities.Concrete;
 using Entities.DTOs;
 using System;
 using System.Collections.Generic;
@@ -16,5 +17,7 @@ namespace Business.Abstract
         void Add(Polyclinic polyclinic);
         void Update(Polyclinic polyclinic);
         void Delete(Polyclinic polyclinic);
+
+        bool PolyclinicExistByName(string name);
     }
 }

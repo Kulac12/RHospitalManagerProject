@@ -10,6 +10,6 @@ namespace DataAccess.Abstract
 {
     public interface IPolyclinicRepository:IEntityRepository<Polyclinic>
     {
-
+       
     }
 }

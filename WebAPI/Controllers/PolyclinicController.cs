@@ -17,12 +17,18 @@ namespace WebAPI.Controllers
             _polyclinicService = polyclinicService;
         }
         [HttpPost("add")]
-        public IActionResult AddPolyclinic(PolyclinicDetailDto polyclinicDto)
+        public IActionResult AddPolyclinic(PolyclinicDetailDto polyclinicDetailDto)
         {
+            var polyclinicExists = _polyclinicService.PolyclinicExistByName(polyclinicDetailDto.PoliclinicName);
+
+            if (polyclinicExists)
+            {
+                return BadRequest(new { message = "Bu isimde bir poliklinik zaten mevcut." });
+            }
             var polyclinic = new Polyclinic
             {
-                PoliclinicName = polyclinicDto.PoliclinicName,
-                PoliclinicDescription = polyclinicDto.PoliclinicDescription
+                PoliclinicName = polyclinicDetailDto.PoliclinicName,
+                PoliclinicDescription = polyclinicDetailDto.PoliclinicDescription
             };
 
             _polyclinicService.Add(polyclinic);
