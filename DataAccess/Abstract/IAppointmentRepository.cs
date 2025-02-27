@@ -12,5 +12,8 @@ namespace DataAccess.Abstract
     public interface IAppointmentRepository:IEntityRepository<Appointment>
     {
 
+
+
+
     }
 }

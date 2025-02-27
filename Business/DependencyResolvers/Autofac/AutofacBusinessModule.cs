@@ -34,7 +34,10 @@ namespace Business.DependencyResolvers.Autofac
             builder.RegisterType<DoctorRepository>().As<IDoctorRepository>().InstancePerLifetimeScope();
             builder.RegisterType<UserOperationClaimRepository>().As<IUserOperationClaimRepository>().InstancePerLifetimeScope();
             builder.RegisterType<PolyclinicRepository>().As<IPolyclinicRepository>().InstancePerLifetimeScope();
-
+            builder.RegisterType<AppointmentRepository>().As<IAppointmentRepository>().InstancePerLifetimeScope();
+           
+          
+            builder.RegisterType<AppointmentService>().As<IAppointmentService>().InstancePerLifetimeScope();
 
             builder.RegisterType<UserManager>().As<IUserService>();
             builder.RegisterType<EfUserDal>().As<IUserDal>();

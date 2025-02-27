@@ -1,4 +1,5 @@
 ﻿using Entities.Concrete;
+using Entities.DTOs;
 using Entities.Models.CustomModels.EnumModels;
 using System;
 using System.Collections.Generic;
@@ -18,7 +19,7 @@ namespace Business.Abstract
      
         List<Appointment> GetByStatus(AppointmentStatus status);
 
-
+        void CreateAppointment(AppointmentCreateDto appointmentCreateDto);
 
     }
 }

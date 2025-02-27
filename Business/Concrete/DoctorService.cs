@@ -30,5 +30,6 @@ namespace Business.Concrete
         //{
         //    return _patientRepository.GetClaims(user);
         //}
+
     }
 }
