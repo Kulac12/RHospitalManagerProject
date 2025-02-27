@@ -17,7 +17,8 @@ namespace Business.Abstract
         void Add(Polyclinic polyclinic);
         void Update(Polyclinic polyclinic);
         void Delete(Polyclinic polyclinic);
-
         bool PolyclinicExistByName(string name);
+
+
     }
 }

@@ -1,0 +1,16 @@
+﻿using Core.DataAccess;
+using Entities.Concrete;
+using Entities.Models.CustomModels.EnumModels;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace DataAccess.Abstract
+{
+    public interface IAppointmentRepository:IEntityRepository<Appointment>
+    {
+
+    }
+}
