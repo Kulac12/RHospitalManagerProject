@@ -69,6 +69,53 @@ namespace Business.Concrete
             return _appointmentRepository.GetAll(p => p.Status == status).ToList();
         }
 
+        //public void CreateAppointment(AppointmentCreateDto appointmentCreateDto)
+        //{
+        //    // Doktoru ve Polikliniği bul
+        //    var doctor = _doctorRepository.Get(d => d.DoctorFirstName + " " + d.DoctorLastName == appointmentCreateDto.DoctorName);
+        //    var polyclinic = _polyclinicRepository.Get(p => p.PoliclinicName == appointmentCreateDto.PoliklinikName);
+
+        //    if (doctor == null || polyclinic == null)
+        //    {
+        //        throw new Exception("Doktor veya Poliklinik bulunamadı.");
+        //    }
+
+        //    // JWT token'dan UserId'yi al (UserId int olduğu için, bir şekilde int'e dönüştürülmeli)
+        //    var userIdStr = _httpContextAccessor.HttpContext.User.Claims
+        //        .FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier)?.Value;
+
+        //    if (string.IsNullOrEmpty(userIdStr) || !int.TryParse(userIdStr, out int userId))
+        //    {
+        //        throw new Exception("User bilgisi bulunamadı veya geçersiz.");
+        //    }
+
+        //    // UserId'ye bağlı olan Patient'ı al
+        //    var patient = _patientRepository.Get(p => p.UserId == userId);
+
+        //    if (patient == null)
+        //    {
+        //        throw new Exception("Patient bulunamadı.");
+        //    }
+
+
+        //    // PatientId'yi al
+        //    var patientId = patient.Id;  // PatientId (Guid)
+
+        //    // Yeni randevu oluştur
+        //    var appointment = new Appointment
+        //    {
+        //        PatientId = patientId,  // PatientId
+        //        DoctorId = doctor.Id,
+        //        PolyclinicId = polyclinic.Id,
+        //        Date = appointmentCreateDto.AppointmentDate.Date,
+        //        Time = appointmentCreateDto.AppointmentTime.Value,
+        //        Status = AppointmentStatus.Pending
+        //    };
+
+        //    // Randevuyu kaydet
+        //    _appointmentRepository.Add(appointment);
+        //}
+
         public void CreateAppointment(AppointmentCreateDto appointmentCreateDto)
         {
             // Doktoru ve Polikliniği bul
@@ -80,7 +127,7 @@ namespace Business.Concrete
                 throw new Exception("Doktor veya Poliklinik bulunamadı.");
             }
 
-            // JWT token'dan UserId'yi al (UserId int olduğu için, bir şekilde int'e dönüştürülmeli)
+            // JWT token'dan UserId'yi al (UserId int olduğu için, bir şekilde int’e dönüştürülmeli)
             var userIdStr = _httpContextAccessor.HttpContext.User.Claims
                 .FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier)?.Value;
 
@@ -100,6 +147,24 @@ namespace Business.Concrete
             // PatientId'yi al
             var patientId = patient.Id;  // PatientId (Guid)
 
+            // Aynı tarih ve saatte doktor için randevu var mı kontrol et
+            var doctorExistingAppointment = _appointmentRepository.Get(a =>
+                a.DoctorId == doctor.Id && a.Date == appointmentCreateDto.AppointmentDate.Date && a.Time == appointmentCreateDto.AppointmentTime.Value);
+
+            if (doctorExistingAppointment != null)
+            {
+                throw new Exception("Doktor bu tarih ve saatte başka bir randevuya sahip.");
+            }
+
+            // Aynı tarih ve saatte hasta için randevu var mı kontrol et
+            var patientExistingAppointment = _appointmentRepository.Get(a =>
+                a.PatientId == patientId && a.Date == appointmentCreateDto.AppointmentDate.Date && a.Time == appointmentCreateDto.AppointmentTime.Value);
+
+            if (patientExistingAppointment != null)
+            {
+                throw new Exception("Hasta bu tarih ve saatte başka bir randevuya sahip.");
+            }
+
             // Yeni randevu oluştur
             var appointment = new Appointment
             {
@@ -114,7 +179,6 @@ namespace Business.Concrete
             // Randevuyu kaydet
             _appointmentRepository.Add(appointment);
         }
-
 
     }
 
