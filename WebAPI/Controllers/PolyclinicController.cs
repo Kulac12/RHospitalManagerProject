@@ -38,10 +38,14 @@ namespace WebAPI.Controllers
         [HttpGet("getAll")]
         public IActionResult GetAllPolyclinics()
         {
-            var polyclinics = _polyclinicService.GetAll();
+            var polyclinics = _polyclinicService.GetAllPolyclinics();
             return Ok(polyclinics);
         }
 
-
+        //[HttpPost("delete/{polyclinicId}")]
+        //public IActionResult SoftDeletePolyclinic(Guid polyclinicId )
+        //{
+        //    var polyclinic = _polyclinicService.PolyclinicExistById();
+        //}
     }
 }

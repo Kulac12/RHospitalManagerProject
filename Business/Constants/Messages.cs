@@ -38,6 +38,8 @@ namespace Business.Constants
         public static string PasswordError = "Parola hatası";
 
         public static string PolyclinikNotFound = "Poliklinik bulunamadı";
+        //Appointment
+        public static string AppointmentPoyclinicOrDoctorNotFound = "Poliklinik veya Doktor bilgisini bulunamadı.";
     }
 }
 

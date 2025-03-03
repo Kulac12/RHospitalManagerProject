@@ -21,5 +21,6 @@ namespace Business.Abstract
 
         void CreateAppointment(AppointmentCreateDto appointmentCreateDto);
 
+        void DeleteAppointment(Guid appointmentId);
     }
 }

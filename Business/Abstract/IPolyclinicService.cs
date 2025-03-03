@@ -18,7 +18,8 @@ namespace Business.Abstract
         void Update(Polyclinic polyclinic);
         void Delete(Polyclinic polyclinic);
         bool PolyclinicExistByName(string name);
-
+        bool PolyclinicExistById(Guid polyclinic);
+        List<PolyclinicDetailDto> GetAllPolyclinics();
 
     }
 }

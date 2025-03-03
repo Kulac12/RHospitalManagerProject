@@ -1,4 +1,5 @@
 ﻿using Business.Abstract;
+using Entities.Concrete;
 using Entities.DTOs;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -34,6 +35,12 @@ namespace WebAPI.Controllers
             _appointmentService.CreateAppointment(appointmentCreateDto);
             return Ok("Randevu başarıyla oluşturuldu.");
            
+        }
+        [HttpPost("delete")]
+        public IActionResult DeleteAppointment(Guid appointmentId)
+        {
+            _appointmentService.DeleteAppointment(appointmentId);
+            return Ok("Randevu başarılı şekilde silindi.");
         }
     }
 }

@@ -45,6 +45,7 @@ namespace Business.Concrete
         {
             _polyclinicRepository.Delete(polyclinic);
         }
+            
 
         public List<PolyclinicDetailDto> GetAll()
         {
@@ -58,6 +59,8 @@ namespace Business.Concrete
 
             return result;
         }
+
+
         public Polyclinic GetBySameName(string name)
         {
             return _polyclinicRepository.GetAll(p => p.PoliclinicName == name).SingleOrDefault();
@@ -69,6 +72,13 @@ namespace Business.Concrete
             return _polyclinicRepository.GetAll(p => p.PoliclinicName == name).Any();
         }
 
-      
+        public bool PolyclinicExistById(Guid polyclinic)
+        {
+            //Eğer varsa true, yoksa false
+            return _polyclinicRepository.GetAll(p => p.Id == polyclinic).Any();
+        }
+        public List<PolyclinicDetailDto> GetAllPolyclinics(){
+            return _polyclinicRepository.GetAllPolyclinics();
+        }
     }
 }
