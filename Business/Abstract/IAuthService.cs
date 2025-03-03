@@ -17,7 +17,8 @@ namespace Business.Abstract
         IResult UserExistsIdentityPatient(string identityNumber);
         IResult UserExistsIdentityDoctor(string identityNumber);
         IDataResult<AccessToken> CreateAccessToken(User user);
-      
+
+        List<UserWithRolesDto> GetAllUsers();
     }
 }
  

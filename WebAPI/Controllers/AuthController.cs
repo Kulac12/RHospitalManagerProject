@@ -215,6 +215,12 @@ namespace WebAPI.Controllers
 
         }
 
+        //[HttpGet("allusers")]
+        //public IActionResult AllUsers()
+        //{
+        //    var users = _authService.GetAllUsers();
+        //    return Ok(users);
+        }
 
     }
 }

@@ -6,6 +6,8 @@ using Core.Entities.Concrete;
 using Core.Utilities.Results;
 using Core.Utilities.Security.Hashing;
 using Core.Utilities.Security.JWT;
+using DataAccess.Abstract;
+using DataAccess.Concrete.EntityFramework;
 using Entities.Concrete;
 using Entities.DTOs;
 using System;
@@ -25,7 +27,9 @@ namespace Business.Concrete
         private IPolyclinicService _polyclinicService;
         private IUserOperationClaimService _userOperationClaimService;
 
+        IUserDal _userDal;
         public AuthManager(
+            IUserDal _userDal,
             IUserService userService, 
             ITokenHelper tokenHelper,
             IPatientService patientService,
@@ -33,6 +37,7 @@ namespace Business.Concrete
             IDoctorService doctorService,
             IPolyclinicService polyclinicService)
         {
+            _userDal = _userDal;
             _userService = userService;
             _tokenHelper = tokenHelper;
             _patientService = patientService;
@@ -249,5 +254,9 @@ namespace Business.Concrete
             return new SuccessResult();
         }
 
+        public List<UserWithRolesDto> GetAllUsers()
+        {
+            return _userDal.GetAllUsers();
+        }
     }
 }

@@ -80,5 +80,6 @@ namespace Business.Concrete
         public List<PolyclinicDetailDto> GetAllPolyclinics(){
             return _polyclinicRepository.GetAllPolyclinics();
         }
+       
     }
 }

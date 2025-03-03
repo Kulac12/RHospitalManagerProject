@@ -1,6 +1,7 @@
 ﻿using Business.Abstract;
 using Core.Entities.Concrete;
 using DataAccess.Abstract;
+using DataAccess.Concrete.EntityFramework;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -33,6 +34,6 @@ namespace Business.Concrete
             return _userDal.Get(u => u.Email == email);
         }
     
-        
+       
     }
 }
