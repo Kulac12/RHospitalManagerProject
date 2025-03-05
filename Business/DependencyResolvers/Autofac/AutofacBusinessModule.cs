@@ -21,23 +21,20 @@ namespace Business.DependencyResolvers.Autofac
     {
         protected override void Load(ContainerBuilder builder)
         {
-            builder.RegisterType<ProductManager>().As<IProductService>().SingleInstance();
-            builder.RegisterType<CategoryManager>().As<ICategoryService>().SingleInstance();
+           
             //birisi senden IProductService isterse ona ProductManager ver demek
-            builder.RegisterType<EfProductDal>().As<IProductDal>().SingleInstance();
-            builder.RegisterType<EfCategoryDal>().As<ICategoryDal>().SingleInstance();
+           
             //builder.Services.AddSingleton<IProductDal, EfProductDal>();
 
             //builder.RegisterType<FileLogger>().As<ILogger>().SingleInstance();
             //builder.RegisterType<DatabaseLogger>().As<ILogger>().SingleInstance();
-            builder.RegisterType<PatientRepository>().As<IPatientRepository>().InstancePerLifetimeScope();
-            builder.RegisterType<DoctorRepository>().As<IDoctorRepository>().InstancePerLifetimeScope();
-            builder.RegisterType<UserOperationClaimRepository>().As<IUserOperationClaimRepository>().InstancePerLifetimeScope();
-            builder.RegisterType<PolyclinicRepository>().As<IPolyclinicRepository>().InstancePerLifetimeScope();
-            builder.RegisterType<AppointmentRepository>().As<IAppointmentRepository>().InstancePerLifetimeScope();
+          
+            //builder.RegisterType<UserOperationClaimRepository>().As<IUserOperationClaimRepository>().InstancePerLifetimeScope();
+            //builder.RegisterType<PolyclinicRepository>().As<IPolyclinicRepository>().InstancePerLifetimeScope();
+            //builder.RegisterType<AppointmentRepository>().As<IAppointmentRepository>().InstancePerLifetimeScope();
            
           
-            builder.RegisterType<AppointmentService>().As<IAppointmentService>().InstancePerLifetimeScope();
+            //builder.RegisterType<AppointmentService>().As<IAppointmentService>().InstancePerLifetimeScope();
 
             builder.RegisterType<UserManager>().As<IUserService>();
             builder.RegisterType<EfUserDal>().As<IUserDal>();

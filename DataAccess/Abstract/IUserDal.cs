@@ -13,6 +13,6 @@ namespace DataAccess.Abstract
     {
         List<OperationClaim> GetClaims(User user);
 
-        List<UserWithRolesDto> GetAllUsers();
+       
     }
 }
