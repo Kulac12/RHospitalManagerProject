@@ -30,6 +30,16 @@ namespace Core.DataAccess.EntityFramework
             }
         }
 
+        public async Task AddAsync(TEntity entity)
+        {
+            using (TContext context = new TContext())
+            {
+                var addedEntity = context.Entry(entity);
+                addedEntity.State = EntityState.Added;
+                await context.SaveChangesAsync();  // Asenkron versiyon
+            }
+        }
+
         public void Delete(TEntity entity)
         {
             //Idisposabe pattern implementation of c#
@@ -63,6 +73,8 @@ namespace Core.DataAccess.EntityFramework
 
         }
 
+     
+
         public void Update(TEntity entity)
         {
             //Idisposabe pattern implementation of c#
@@ -74,7 +86,21 @@ namespace Core.DataAccess.EntityFramework
 
             }
         }
-    
-    
+
+        public async Task<List<TEntity>> GetAllAsync(Expression<Func<TEntity, bool>> filter = null)
+        {
+            using (TContext context = new TContext())
+            {
+                IQueryable<TEntity> query = context.Set<TEntity>();
+
+                // Eğer filter varsa, sorguya ekliyoruz
+                if (filter != null)
+                {
+                    query = query.Where(filter);
+                }
+
+                return await query.ToListAsync(); // Asenkron olarak listeyi döndürüyoruz
+            }
+        }
     }
 }

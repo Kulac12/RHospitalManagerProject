@@ -10,6 +10,34 @@ namespace Business.Constants
     public static class Messages
     {
 
+        //Polyclinic Mesajları
+        public static string AddPolyclinic = "Poliklinik başarılı şekilde oluşturuldu";
+        public static string DeletePolyclinic = "Poliklinik başarılı şekilde silindi";
+        public static string UpdatePolyclinic = "Poliklinik başarılı şekilde güncellendi";
+
+        public static string PolyclinicExists = "Poliklinik zaten var";
+        public static string IsNullOrWhiteSpace = "Poliklinik adı boş olamaz.";
+        public static string PolyclinicNotFound = "Poliklinik bulunamadı";
+        
+
+        //Appointment
+        public static string AppointmentPoyclinicOrDoctorNotFound = "Poliklinik veya Doktor bilgisini bulunamadı.";
+        public static string AppointmentAdded = "Randevu başarılı şekilde oluşturuldu.";
+        public static string PolyclinikNotFound = "Poliklinik bulunamadı";
+        public static string InvalidDateOrTime = "İlgili tarih ve saat dolu";
+        public static string AppointmentAlreadyExists = "İlgili tarih ve saat dolu";
+
+
+
+        //Doctor
+        public static string DoctorNotFound = "Doktor bulunamadı";
+        public static string PatientNotFound = "Hasta kaydı bulunamadı";
+
+
+
+
+
+
         //ProductManager ile ilgili bilgilendirme mesajları
         public static string ProductAdded = "Ürün eklendi";
         public static string ProductNameInvalid = " Ürün ismi geçersiz";
@@ -37,9 +65,7 @@ namespace Business.Constants
 
         public static string PasswordError = "Parola hatası";
 
-        public static string PolyclinikNotFound = "Poliklinik bulunamadı";
-        //Appointment
-        public static string AppointmentPoyclinicOrDoctorNotFound = "Poliklinik veya Doktor bilgisini bulunamadı.";
+      
     }
 }
 

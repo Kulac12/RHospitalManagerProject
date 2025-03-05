@@ -1,6 +1,7 @@
 ﻿using Business.Abstract;
 using Business.Concrete;
 using Core.Entities.Concrete;
+using Core.Utilities.Models.EnumModels;
 using Core.Utilities.Security.Hashing;
 using Entities.Concrete;
 using Entities.DTOs;
@@ -40,13 +41,29 @@ namespace WebAPI.Controllers
         [HttpPost("register")]
         public ActionResult Register(UserForRegisterDto userForRegisterDto)
         {
-            var userExists = _authService.UserExists(userForRegisterDto.Email);
+            // Kullanıcı zaten var mı kontrol et
+            var userExists = _authService.UserExists(userForRegisterDto.IdentityNumber);
             if (!userExists.Success)
             {
                 return BadRequest(userExists.Message);
             }
 
+            // Kullanıcı türü geçerli mi kontrol et
+            if (!Enum.IsDefined(typeof(UserType), userForRegisterDto.Type))
+            {
+                return BadRequest("Geçersiz kullanıcı tipi.");
+            }
+
+            // Doktor ise PoliklinikId zorunlu olmalı
+            if (userForRegisterDto.Type == UserType.Doctor && !userForRegisterDto.PoliklinikId.HasValue)
+            {
+                return BadRequest("Doktor kaydı için PoliklinikId belirtilmelidir.");
+            }
+
+            // Kullanıcıyı kaydet
             var registerResult = _authService.Register(userForRegisterDto, userForRegisterDto.Password);
+
+            // Access Token oluştur
             var result = _authService.CreateAccessToken(registerResult.Data);
             if (result.Success)
             {
@@ -55,6 +72,7 @@ namespace WebAPI.Controllers
 
             return BadRequest(result.Message);
         }
+
     }
 
 }

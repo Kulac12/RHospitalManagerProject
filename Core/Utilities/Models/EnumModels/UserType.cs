@@ -8,7 +8,7 @@ namespace Core.Utilities.Models.EnumModels
 {
     public enum UserType
     {
-        Doctor,
-        Patient
+        Doctor = 0,
+        Patient = 1
     }
 }
